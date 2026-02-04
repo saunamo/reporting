@@ -43,6 +43,7 @@
         .header-actions {
             display: flex;
             gap: 15px;
+            flex-wrap: wrap;
         }
 
         .btn {
@@ -76,6 +77,29 @@
 
         .btn-secondary:hover {
             background: rgba(255,255,255,0.3);
+        }
+
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 0.85rem;
+        }
+
+        .btn-warning {
+            background: #ed8936;
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: #dd6b20;
+        }
+
+        .btn-danger {
+            background: #f56565;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #e53e3e;
         }
 
         .container {
@@ -203,7 +227,7 @@
         }
 
         .project-card.expanded .project-content {
-            max-height: 5000px;
+            max-height: 10000px;
         }
 
         .project-details {
@@ -321,18 +345,9 @@
             font-size: 0.95rem;
         }
 
-        .btn-small {
-            padding: 6px 12px;
-            font-size: 0.85rem;
-        }
-
-        .btn-danger {
-            background: #f56565;
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background: #e53e3e;
+        .task-actions {
+            display: flex;
+            gap: 8px;
         }
 
         /* Modal */
@@ -448,6 +463,16 @@
             .expand-icon {
                 align-self: flex-end;
             }
+
+            .task-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .task-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
         }
     </style>
 </head>
@@ -470,12 +495,12 @@
         <div class="stats-grid">
             <div class="stat-card success">
                 <div class="stat-label">Active Projects</div>
-                <div class="stat-value" id="activeProjects">1</div>
+                <div class="stat-value" id="activeProjects">0</div>
                 <div class="stat-description">Currently running</div>
             </div>
             <div class="stat-card info">
                 <div class="stat-label">Completed Projects</div>
-                <div class="stat-value" id="completedProjects">1</div>
+                <div class="stat-value" id="completedProjects">2</div>
                 <div class="stat-description">Production ready</div>
             </div>
             <div class="stat-card warning">
@@ -485,7 +510,7 @@
             </div>
             <div class="stat-card">
                 <div class="stat-label">Total Hours</div>
-                <div class="stat-value">40+</div>
+                <div class="stat-value">60+</div>
                 <div class="stat-description">Development time</div>
             </div>
         </div>
@@ -494,18 +519,22 @@
         <div id="projectsContainer"></div>
     </div>
 
-    <!-- Add Task Modal -->
+    <!-- Add/Edit Task Modal -->
     <div id="taskModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Add New Task</h2>
+                <h2 id="modalTitle">Add New Task</h2>
             </div>
             <form id="taskForm">
                 <div class="modal-body">
+                    <input type="hidden" id="taskId">
+                    <input type="hidden" id="taskIndex">
+                    
                     <div class="form-group">
                         <label for="taskProject">Project *</label>
                         <select id="taskProject" required>
                             <option value="pipedrive-katana">Pipedrive-Katana Automation</option>
+                            <option value="seo-performance">SEO & Performance Optimization</option>
                             <option value="general">General / Other</option>
                         </select>
                     </div>
@@ -549,7 +578,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" onclick="closeTaskModal()">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Add Task</button>
+                    <button type="submit" class="btn btn-primary" id="submitBtn">Add Task</button>
                 </div>
             </form>
         </div>
@@ -580,7 +609,8 @@
                             'Deployed serverless functions (JavaScript) for optimal compatibility',
                             'Configured environment variables for API security',
                             'Set up automatic deployments on git push',
-                            'Created health check endpoint for monitoring'
+                            'Created health check endpoint for monitoring',
+                            'Configured Zapier trigger on Pipedrive "Deal Won" status'
                         ]
                     },
                     {
@@ -600,7 +630,8 @@
                             'Implemented explicit null/undefined checks',
                             'Properly handles 0% VAT as valid rate',
                             'Maps Pipedrive tax rates to Katana tax rate IDs',
-                            'Supports mixed VAT rates in single order'
+                            'Supports mixed VAT rates in single order',
+                            'Tested with 0%, 20%, and 23% VAT rates'
                         ]
                     },
                     {
@@ -610,7 +641,8 @@
                             'Created fix_fr_it_product_skus.py script',
                             'Processed ALL FR/IT products in Pipedrive database',
                             'Extracted SKUs from product names',
-                            'Updated dedicated SKU fields systematically'
+                            'Updated dedicated SKU fields systematically',
+                            'Implemented automatic product creation for new SKUs'
                         ]
                     },
                     {
@@ -624,13 +656,38 @@
                         ]
                     },
                     {
-                        title: '6. Testing & Quality Assurance',
+                        title: '6. Data Mapping & Order Creation',
+                        tasks: [
+                            'Customer name extraction (organization or person)',
+                            'Customer email lookup and mapping',
+                            'Order currency mapping (GBP, EUR, USD, etc.)',
+                            'Expected delivery date from Pipedrive',
+                            'Order creation timestamp (deal won time)',
+                            'Order notes with Pipedrive deal reference'
+                        ]
+                    },
+                    {
+                        title: '7. Testing & Quality Assurance',
                         tasks: [
                             'Jeremy Hirsch order (LED strips, 100% discount)',
                             'Berger Patric order (FR products, mixed discounts)',
                             'Various test orders with different discount combinations',
                             '0% VAT products - verified correct',
-                            'New SKU creation - working without duplicates'
+                            'New SKU creation - working without duplicates',
+                            'All order totals verified to match Pipedrive exactly'
+                        ]
+                    },
+                    {
+                        title: '8. Error Resolution',
+                        tasks: [
+                            'Fixed Netlify 404 errors',
+                            'Fixed Zapier JSON parsing errors',
+                            'Fixed Katana API: "source field not supported"',
+                            'Fixed Katana API: "invalid variant"',
+                            'Fixed Katana API: "discount exceeds total"',
+                            'Fixed 0% VAT defaulting to 23%',
+                            'Fixed duplicate product creation bug',
+                            'Fixed LED strips pricing error'
                         ]
                     }
                 ],
@@ -639,13 +696,113 @@
                     { label: 'Runtime', value: 'Node.js (JavaScript)' },
                     { label: 'Trigger', value: 'Zapier Webhooks' },
                     { label: 'APIs', value: 'Pipedrive + Katana' },
-                    { label: 'Version Control', value: 'GitHub' }
+                    { label: 'Version Control', value: 'GitHub' },
+                    { label: 'Functions', value: '600+ lines of code' }
+                ]
+            },
+            'seo-performance': {
+                id: 'seo-performance',
+                title: 'SEO & Performance Optimization',
+                status: 'completed',
+                startDate: 'Jan 2026',
+                completionDate: 'Feb 2026',
+                url: 'https://www.saunamo.co.uk',
+                description: 'Comprehensive SEO and performance improvements for Saunamo website',
+                metrics: {
+                    'Performance Score': '53 → 65-75',
+                    'LCP Improvement': '2.6s → 2.3s',
+                    'Payload Reduction': '~2MB saved',
+                    'Dev Hours': '20+'
+                },
+                categories: [
+                    {
+                        title: '1. Meta Descriptions & SEO',
+                        tasks: [
+                            'Fixed 6 duplicate meta descriptions via API',
+                            'Created unique descriptions for all Harvia Aava heaters',
+                            'Created unique descriptions for Harvia Kajo heaters',
+                            'Updated product meta descriptions programmatically',
+                            'Created scripts for meta description management'
+                        ]
+                    },
+                    {
+                        title: '2. Image Optimization',
+                        tasks: [
+                            'Reduced hero image width from 3840px to 1920px',
+                            'Added loading="lazy" to 39 images',
+                            'Added decoding="async" to collection/product cards',
+                            'Added alt text to slideshow images',
+                            'Created accessible-image.liquid snippet',
+                            'Expected payload reduction: 1-2 MB'
+                        ]
+                    },
+                    {
+                        title: '3. JavaScript Optimization',
+                        tasks: [
+                            'Implemented conditional Swiper loading (~151 KB savings)',
+                            'Implemented conditional PhotoSwipe loading (~244 KB savings)',
+                            'Implemented conditional ScrollTrigger loading (~24 KB savings)',
+                            'Implemented conditional noUiSlider loading (~27 KB savings)',
+                            'Implemented conditional Vimeo Player loading (~37 KB savings)',
+                            'Created optimized-scripts.liquid snippet',
+                            'Total expected savings: 400-500 KB'
+                        ]
+                    },
+                    {
+                        title: '4. Critical Path Optimization',
+                        tasks: [
+                            'Added fetchpriority="high" to hero image',
+                            'Added preload for Swiper CSS',
+                            'Made Google Tag Manager async/deferred',
+                            'Optimized render-blocking resources',
+                            'Expected TBT reduction: 100-300ms'
+                        ]
+                    },
+                    {
+                        title: '5. Core Web Vitals',
+                        tasks: [
+                            'LCP: Targeted 2.6s → 2.3s (below 2.5s threshold)',
+                            'INP: Already excellent at 95ms',
+                            'CLS: Perfect score at 0',
+                            'FCP: 1.6s maintained',
+                            'TTFB: 0.5s maintained'
+                        ]
+                    },
+                    {
+                        title: '6. Scripts & Automation',
+                        tasks: [
+                            'Created analyze_theme_performance.py',
+                            'Created fix_theme_performance.py',
+                            'Created fix_slideshow_fetchpriority.py',
+                            'Created fix_all_images.py',
+                            'Created check_core_web_vitals.py',
+                            'Created check_meta_descriptions.py',
+                            'Created update_product_meta_descriptions.py'
+                        ]
+                    },
+                    {
+                        title: '7. Accessibility Improvements',
+                        tasks: [
+                            'Added alt attributes to images',
+                            'Improved heading hierarchy',
+                            'Created accessible-image.liquid snippet',
+                            'Expected accessibility score: 90 → 93-95'
+                        ]
+                    }
+                ],
+                technicalDetails: [
+                    { label: 'Platform', value: 'Shopify Liquid' },
+                    { label: 'Tools', value: 'PageSpeed Insights' },
+                    { label: 'Monitoring', value: 'Chrome UX Report' },
+                    { label: 'Scripts', value: 'Python (Shopify API)' },
+                    { label: 'Payload Savings', value: '~2 MB reduction' }
                 ]
             }
         };
 
         // Load tasks from localStorage
         let allTasks = JSON.parse(localStorage.getItem('projectTasks')) || [];
+        let editingTaskIndex = null;
 
         // Initialize
         function init() {
@@ -724,11 +881,16 @@
                             <div class="section">
                                 <div class="section-title">📋 Pending Tasks (${projectTasks.length})</div>
                                 ${projectTasks.length > 0 ? `
-                                    ${projectTasks.map((task, index) => `
+                                    ${projectTasks.map((task) => {
+                                        const taskIndex = allTasks.indexOf(task);
+                                        return `
                                         <div class="task-item priority-${task.priority}">
                                             <div class="task-item-header">
                                                 <div class="task-item-title">${task.title}</div>
-                                                <button class="btn btn-danger btn-small" onclick="deleteTask(${allTasks.indexOf(task)})">Delete</button>
+                                                <div class="task-actions">
+                                                    <button class="btn btn-warning btn-small" onclick="editTask(${taskIndex})">Edit</button>
+                                                    <button class="btn btn-danger btn-small" onclick="deleteTask(${taskIndex})">Delete</button>
+                                                </div>
                                             </div>
                                             <div class="task-item-meta">
                                                 <span class="status-badge ${task.priority === 'high' ? 'status-pending' : task.priority === 'medium' ? 'status-active' : 'status-completed'}">${task.priority.toUpperCase()}</span>
@@ -736,7 +898,7 @@
                                             </div>
                                             <div class="task-item-description">${task.description}</div>
                                         </div>
-                                    `).join('')}
+                                    `}).join('')}
                                 ` : `
                                     <div class="empty-state">
                                         <div class="empty-state-icon">✨</div>
@@ -767,12 +929,37 @@
 
         // Modal functions
         function openTaskModal() {
+            editingTaskIndex = null;
+            document.getElementById('modalTitle').textContent = 'Add New Task';
+            document.getElementById('submitBtn').textContent = 'Add Task';
+            document.getElementById('taskForm').reset();
+            document.getElementById('taskId').value = '';
+            document.getElementById('taskIndex').value = '';
+            document.getElementById('taskModal').classList.add('active');
+        }
+
+        function editTask(index) {
+            editingTaskIndex = index;
+            const task = allTasks[index];
+            
+            document.getElementById('modalTitle').textContent = 'Edit Task';
+            document.getElementById('submitBtn').textContent = 'Save Changes';
+            document.getElementById('taskId').value = task.id;
+            document.getElementById('taskIndex').value = index;
+            document.getElementById('taskProject').value = task.project;
+            document.getElementById('taskTitle').value = task.title;
+            document.getElementById('taskDescription').value = task.description;
+            document.getElementById('taskPriority').value = task.priority;
+            document.getElementById('taskCategory').value = task.category;
+            document.getElementById('taskAssignee').value = task.assignee === 'Unassigned' ? '' : task.assignee;
+            
             document.getElementById('taskModal').classList.add('active');
         }
 
         function closeTaskModal() {
             document.getElementById('taskModal').classList.remove('active');
             document.getElementById('taskForm').reset();
+            editingTaskIndex = null;
         }
 
         // Form submission
@@ -786,18 +973,25 @@
                 priority: document.getElementById('taskPriority').value,
                 category: document.getElementById('taskCategory').value,
                 assignee: document.getElementById('taskAssignee').value || 'Unassigned',
-                date: new Date().toISOString(),
-                id: Date.now()
+                date: editingTaskIndex !== null ? allTasks[editingTaskIndex].date : new Date().toISOString(),
+                id: editingTaskIndex !== null ? allTasks[editingTaskIndex].id : Date.now()
             };
             
-            allTasks.unshift(task);
+            if (editingTaskIndex !== null) {
+                // Update existing task
+                allTasks[editingTaskIndex] = task;
+                alert('✅ Task updated successfully!');
+            } else {
+                // Add new task
+                allTasks.unshift(task);
+                alert('✅ Task added successfully!');
+            }
+            
             localStorage.setItem('projectTasks', JSON.stringify(allTasks));
             
             closeTaskModal();
             renderProjects();
             updateStats();
-            
-            alert('✅ Task added successfully!');
         });
 
         function deleteTask(index) {
