@@ -500,7 +500,7 @@
             </div>
             <div class="stat-card info">
                 <div class="stat-label">Completed Projects</div>
-                <div class="stat-value" id="completedProjects">2</div>
+                <div class="stat-value" id="completedProjects">3</div>
                 <div class="stat-description">Production ready</div>
             </div>
             <div class="stat-card warning">
@@ -510,7 +510,7 @@
             </div>
             <div class="stat-card">
                 <div class="stat-label">Total Hours</div>
-                <div class="stat-value">60+</div>
+                <div class="stat-value">65+</div>
                 <div class="stat-description">Development time</div>
             </div>
         </div>
@@ -535,6 +535,7 @@
                         <select id="taskProject" required>
                             <option value="pipedrive-katana">Pipedrive-Katana Automation</option>
                             <option value="seo-performance">SEO & Performance Optimization</option>
+                            <option value="reporting-dashboard">Project Reporting Dashboard</option>
                             <option value="general">General / Other</option>
                         </select>
                     </div>
@@ -678,7 +679,18 @@
                         ]
                     },
                     {
-                        title: '8. Error Resolution',
+                        title: '8. Product Creation & Data Management',
+                        tasks: [
+                            'Created Harvia Vega Compact 3.5kW for all 7 countries - Ensures product available in all official markets (UK, FR, IT, ES, PT, EN, US)',
+                            'Created missing US product versions - US customers can now order in USD with proper pricing conversion',
+                            'Standardized product creation for official countries only - Following business rule: only 7 countries, not all EU countries',
+                            'Set up proper VAT rates per country - UK 20%, FR 20%, IT 22%, ES 21%, PT 23%, EN/US 0%',
+                            'Applied correct currency conversions - EUR base with GBP (0.85x) and USD (1.08x) conversions',
+                            'Created reusable scripts for multi-country product creation - Can easily add new products across all markets'
+                        ]
+                    },
+                    {
+                        title: '9. Error Resolution',
                         tasks: [
                             'Fixed Netlify 404 errors - Switched from Python to JavaScript functions, added base index.html for proper deployment',
                             'Fixed Zapier JSON parsing errors - Changed payload type from form data to JSON, now sends data correctly',
@@ -811,6 +823,80 @@
                     { label: 'Monitoring', value: 'Chrome UX Report' },
                     { label: 'Scripts', value: 'Python (Shopify API)' },
                     { label: 'Payload Savings', value: '~2 MB reduction' }
+                ]
+            },
+            'reporting-dashboard': {
+                id: 'reporting-dashboard',
+                title: 'Project Reporting Dashboard',
+                status: 'completed',
+                startDate: 'Feb 2026',
+                completionDate: 'Feb 2026',
+                url: 'https://github.com/saunamo/reporting',
+                description: 'Interactive project dashboard for tracking and communicating development work to management',
+                metrics: {
+                    'Dev Time': '3 hours',
+                    'Projects Tracked': '2 (+ expandable)',
+                    'Tasks Documented': '110+',
+                    'Lines of Code': '1,000+'
+                },
+                categories: [
+                    {
+                        title: '1. Dashboard Development',
+                        tasks: [
+                            'Created single-page HTML dashboard - Clean interface showing all projects and tasks in one place',
+                            'Implemented expandable project cards - Click to expand/collapse details, keeps overview uncluttered',
+                            'Added stats overview section - Quick metrics at top (active projects, completed projects, pending tasks)',
+                            'Designed responsive layout - Works on mobile, tablet, and desktop for viewing anywhere',
+                            'Used modern CSS styling - Professional gradient headers, card shadows, smooth animations'
+                        ]
+                    },
+                    {
+                        title: '2. Task Management Features',
+                        tasks: [
+                            'Built add task functionality - Modal popup with form to create new tasks',
+                            'Implemented edit task feature - Can update existing tasks instead of deleting and recreating',
+                            'Added delete task capability - Remove completed or cancelled tasks with confirmation',
+                            'Created priority system - High (red), Medium (orange), Low (green) color coding',
+                            'Added category tags - Feature, Bug, Improvement, Documentation, Question, Other',
+                            'Implemented localStorage persistence - Tasks save in browser, persist across sessions'
+                        ]
+                    },
+                    {
+                        title: '3. Project Organization',
+                        tasks: [
+                            'Organized by project - Each major project has its own expandable card',
+                            'Categorized completed work - Tasks grouped by type (Infrastructure, Discounts, VAT, etc.)',
+                            'Added technical details section - Shows tech stack, APIs, tools used per project',
+                            'Included key metrics - Performance improvements, time savings, issues resolved',
+                            'Created status badges - Visual indicators for Completed, Active, Pending status',
+                            'Added project timelines - Start/end dates for each project'
+                        ]
+                    },
+                    {
+                        title: '4. Data Export & Sharing',
+                        tasks: [
+                            'Built JSON export functionality - Export all tasks for backup or sharing',
+                            'Added task counter - Shows number of pending tasks per project',
+                            'Implemented download feature - Exports tasks with timestamp in filename',
+                            'Made descriptions detailed - Each task explains what/why/benefit for non-technical readers'
+                        ]
+                    },
+                    {
+                        title: '5. GitHub & Deployment',
+                        tasks: [
+                            'Created GitHub repository - Version control for dashboard code',
+                            'Set up Netlify deployment - Automatic hosting from GitHub',
+                            'Configured auto-deploy on push - Changes go live automatically',
+                            'Added README documentation - Instructions for setup and usage'
+                        ]
+                    }
+                ],
+                technicalDetails: [
+                    { label: 'Platform', value: 'Netlify + GitHub' },
+                    { label: 'Technology', value: 'HTML/CSS/JavaScript' },
+                    { label: 'Storage', value: 'localStorage (client-side)' },
+                    { label: 'Framework', value: 'Vanilla JS (no dependencies)' },
+                    { label: 'Responsive', value: 'Mobile/Tablet/Desktop' }
                 ]
             }
         };
