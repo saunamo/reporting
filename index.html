@@ -722,11 +722,24 @@
                             'Created unique descriptions for all Harvia Aava heaters',
                             'Created unique descriptions for Harvia Kajo heaters',
                             'Updated product meta descriptions programmatically',
-                            'Created scripts for meta description management'
+                            'Created scripts for meta description management',
+                            'Fixed missing meta descriptions for /collections/all (7 pages)',
+                            'Added dynamic meta description for pagination pages'
                         ]
                     },
                     {
-                        title: '2. Image Optimization',
+                        title: '2. H1 Tag Fixes (Feb 4, 2026)',
+                        tasks: [
+                            'Fixed missing H1 tags on 23 product pages',
+                            'Removed CSS class hiding H1 tags from view',
+                            'Verified collections page H1 configuration',
+                            'Ensured H1 visibility for SEO crawlers (JS disabled)',
+                            'Updated product-info.liquid for proper H1 display',
+                            'All pages now have proper H1 heading structure'
+                        ]
+                    },
+                    {
+                        title: '3. Image Optimization',
                         tasks: [
                             'Reduced hero image width from 3840px to 1920px',
                             'Added loading="lazy" to 39 images',
@@ -737,7 +750,7 @@
                         ]
                     },
                     {
-                        title: '3. JavaScript Optimization',
+                        title: '4. JavaScript Optimization',
                         tasks: [
                             'Implemented conditional Swiper loading (~151 KB savings)',
                             'Implemented conditional PhotoSwipe loading (~244 KB savings)',
@@ -749,7 +762,7 @@
                         ]
                     },
                     {
-                        title: '4. Critical Path Optimization',
+                        title: '5. Critical Path Optimization',
                         tasks: [
                             'Added fetchpriority="high" to hero image',
                             'Added preload for Swiper CSS',
@@ -759,7 +772,7 @@
                         ]
                     },
                     {
-                        title: '5. Core Web Vitals',
+                        title: '6. Core Web Vitals',
                         tasks: [
                             'LCP: Targeted 2.6s → 2.3s (below 2.5s threshold)',
                             'INP: Already excellent at 95ms',
@@ -769,7 +782,7 @@
                         ]
                     },
                     {
-                        title: '6. Scripts & Automation',
+                        title: '7. Scripts & Automation',
                         tasks: [
                             'Created analyze_theme_performance.py',
                             'Created fix_theme_performance.py',
@@ -777,11 +790,13 @@
                             'Created fix_all_images.py',
                             'Created check_core_web_vitals.py',
                             'Created check_meta_descriptions.py',
-                            'Created update_product_meta_descriptions.py'
+                            'Created update_product_meta_descriptions.py',
+                            'Created fix_seo_issues_feb4.py (H1 & meta fixes)',
+                            'Created fix_h1_final_feb4.py (H1 visibility fix)'
                         ]
                     },
                     {
-                        title: '7. Accessibility Improvements',
+                        title: '8. Accessibility Improvements',
                         tasks: [
                             'Added alt attributes to images',
                             'Improved heading hierarchy',
