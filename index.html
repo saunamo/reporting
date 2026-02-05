@@ -753,12 +753,13 @@
                     {
                         title: '3. Image Optimization',
                         tasks: [
+                            'Compressed ALL site images using Crush.ai - AI-powered compression reduced file sizes by 60-70% without visible quality loss',
                             'Reduced hero image width from 3840px to 1920px - Saves 1-2 MB per page load, most screens are 1920px or smaller anyway',
                             'Added loading="lazy" to 39 images - Browser only loads images when user scrolls to them, speeds up initial page load significantly',
                             'Added decoding="async" to collection/product cards - Images decode in background without blocking page rendering',
                             'Added alt text to slideshow images - Improves accessibility for screen readers and provides SEO context for image content',
                             'Created accessible-image.liquid snippet - Reusable template ensures all new images follow best practices automatically',
-                            'Payload reduction: 1-2 MB saved - Faster page loads mean better user experience and higher conversion rates'
+                            'Total payload reduction: 3-4 MB saved site-wide - Significantly faster page loads across all pages'
                         ]
                     },
                     {
@@ -808,7 +809,25 @@
                         ]
                     },
                     {
-                        title: '8. Accessibility Improvements',
+                        title: '8. Content & Meta Text Optimization',
+                        tasks: [
+                            'Added meta texts to all main pages - Homepage, collection pages, and key landing pages now have optimized meta content',
+                            'Wrote SEO-optimized descriptions - Each page has unique, keyword-rich description for search results',
+                            'Optimized title tags - Added relevant keywords while keeping under 60 characters for full display in search',
+                            'Added structured data hints - Helps Google understand page content and show rich snippets'
+                        ]
+                    },
+                    {
+                        title: '9. Configurator Performance Fix',
+                        tasks: [
+                            'Fixed configurator loading speed - Sauna configurator now loads faster and more reliably',
+                            'Optimized configurator scripts - Reduced JavaScript bundle size for configurator page',
+                            'Fixed configurator preconnect - Added DNS prefetch for external configurator resources',
+                            'Improved configurator UX - Smoother interaction and better mobile performance'
+                        ]
+                    },
+                    {
+                        title: '10. Accessibility Improvements',
                         tasks: [
                             'Added alt attributes to images - Screen readers can describe images to visually impaired users, also helps SEO',
                             'Improved heading hierarchy (H1→H2→H3) - Proper structure helps screen readers navigate, improves SEO and UX',
